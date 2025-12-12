@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# Nudge AI - 아동 금융 교육 플랫폼
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+AI 기반 전화 통화를 통해 아동의 경제 관념과 생활 습관을 교육하는 플랫폼입니다. React와 Tailwind CSS를 사용하여 구현했습니다.
 
-## Available Scripts
+## 기술 스택
 
-In the project directory, you can run:
+- React 19.2.0: 컴포넌트 기반 UI 라이브러리
+- React Router: 클라이언트 사이드 라우팅
+- Tailwind CSS: 유틸리티 기반 CSS 프레임워크
+- Lucide React: 아이콘 라이브러리
+- Create React App: 프로젝트 초기 설정 및 빌드 도구
 
-### `npm start`
+## 주요 기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+이중 모드 시스템
+- 아이 모드: 용돈 확인, 결제, 미션 완료, 저축 목표 관리
+- 부모 모드: 대시보드, 결제 승인, AI 규칙 설정, 통화 기록 조회
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+AI 전화 통화 시뮬레이션
+- 결제 시도 시 AI가 자동으로 전화하여 확인
+- 실시간 채팅 인터페이스로 대화 내용 표시
+- 통화 시간 타이머 및 음소거 기능
+- 타이핑 인디케이터를 통한 자연스러운 대화 흐름
 
-### `npm test`
+결제 시스템
+- QR 코드 결제 시뮬레이션
+- 온라인 간편결제 감지
+- 결제 승인 대기 상태 관리
+- 결제 내역 조회 및 카테고리별 분류
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+용돈 관리
+- 주간 용돈 예산 설정 및 사용량 추적
+- 실시간 잔액 표시 및 진행률 바
+- 최근 사용 내역 리스트
+- 저축 목표 설정 및 달성률 표시
 
-### `npm run build`
+미션 시스템
+- 일일 미션 목록 및 완료 상태 관리
+- 포인트 및 레벨 시스템
+- AI 전화를 통한 미션 완료 확인
+- 뱃지 및 성취 시스템
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+AI 규칙 학습
+- 자연어로 규칙 입력
+- 대화형 질문을 통한 규칙 정확도 향상
+- 규칙 활성화/비활성화 토글
+- 카테고리 및 시간대별 규칙 적용
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 구현 세부사항
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+라우팅은 React Router를 사용하여 로그인, 모드 선택, 아이 앱, 부모 앱 화면을 분리했습니다. 각 화면은 독립적인 컴포넌트로 구성되어 있으며, useNavigate 훅을 통해 화면 전환을 처리합니다.
 
-### `npm run eject`
+AI 전화 통화 시뮬레이션은 useState와 useEffect를 조합하여 구현했습니다. 통화 상태(none, incoming, incall)를 관리하고, setTimeout을 사용하여 대화 메시지를 순차적으로 표시합니다. 채팅 컨테이너는 useRef를 통해 참조하여 메시지 추가 시 자동 스크롤을 구현했습니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+결제 시스템은 여러 상태(paymentStatus)를 통해 결제 방법 선택, QR 스캔, 승인 대기 등의 흐름을 관리합니다. 결제 시도 시 자동으로 AI 전화가 오도록 연결하여 사용자 경험을 자연스럽게 구현했습니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Tailwind CSS의 유틸리티 클래스를 활용하여 반응형 디자인을 구현했습니다. grid, flex, spacing 등의 클래스를 조합하여 모던한 UI를 구성했으며, 다크 모드 스타일(stone-900, stone-800)을 부모 모드에 적용하여 시각적 구분을 명확히 했습니다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+상태 관리는 각 컴포넌트 내에서 useState를 사용하여 로컬 상태를 관리합니다. 복잡한 상태는 객체 형태로 묶어서 관리하며, useEffect를 통해 상태 변경에 따른 사이드 이펙트를 처리합니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 프로젝트 구조
 
-## Learn More
+```
+Nudge_ai/
+├── src/
+│   ├── App.js
+│   ├── main.js
+│   ├── LoginScreen.js
+│   ├── SelectionScreen.js
+│   ├── ChildApp.js
+│   ├── ParentApp.js
+│   └── index.css
+├── public/
+├── tailwind.config.js
+└── package.json
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
